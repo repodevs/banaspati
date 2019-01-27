@@ -1,0 +1,31 @@
+api:
+  restart: always
+  build: .
+  expose:
+    - "8338"
+  volumes:
+    - .:/usr/src/app
+  links:
+    - postgres:postgres
+  env_file: ./.env.docker
+  command:
+    # gunicorn -w 1 -b 0.0.0.0:8338 core.wsgi:app
+    tail -f /dev/null
+
+nginx:
+  restart: always
+  build: ./deployment/nginx
+  ports:
+    - "80:80"
+  volumes_from:
+    - api
+  links:
+    - api:api
+
+postgres:
+  restart: always
+  build: ./deployment/postgres
+  ports:
+    - "5432:5432"
+#  volumes:
+#    - ./postgres/db:/var/lib/postgresql

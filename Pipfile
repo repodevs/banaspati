@@ -1,0 +1,18 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+falcon = "*"
+
+[packages]
+sqlalchemy = "*"
+sqlalchemy-utils = "*"
+gunicorn = "*"
+alembic = "*"
+psycopg2 = "*"
+falcon = {git = "https://github.com/falconry/falcon.git"}
+
+[requires]
+python_version = "3.6"
