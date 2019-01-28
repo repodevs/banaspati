@@ -1,31 +1,39 @@
-api:
-  restart: always
-  build: .
-  expose:
-    - "8338"
-  volumes:
-    - .:/usr/src/app
-  links:
-    - postgres:postgres
-  env_file: ./.env.docker
-  command:
-    # gunicorn -w 1 -b 0.0.0.0:8338 core.wsgi:app
-    tail -f /dev/null
+version: '3'
 
-nginx:
-  restart: always
-  build: ./deployment/nginx
-  ports:
-    - "80:80"
-  volumes_from:
-    - api
-  links:
-    - api:api
+services:
+  api:
+    restart: always
+    container_name: banaspati-api
+    build: .
+    image: repodevs/banaspati:1.0
+    ports:
+      - "8338:8338"
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - postgres
+    env_file: ./.env.docker
+    command:
+       gunicorn -w 1 -b 0.0.0.0:8338 core.wsgi:app
 
-postgres:
-  restart: always
-  build: ./deployment/postgres
-  ports:
-    - "5432:5432"
-#  volumes:
-#    - ./postgres/db:/var/lib/postgresql
+  nginx:
+    restart: always
+    container_name: banaspati-nginx
+    build: ./deployment/nginx
+    image: repodevs/banaspati:nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./deployment/nginx/sites-enabled:/etc/nginx/conf.d
+    depends_on:
+      - api
+
+  postgres:
+    restart: always
+    container_name: banaspati-postgres
+    build: ./deployment/postgres
+    image: repodevs/banaspati:postgres
+    ports:
+      - "5432:5432"
+  #  volumes:
+  #    - ./postgres/db:/var/lib/postgresql
