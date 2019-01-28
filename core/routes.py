@@ -23,7 +23,7 @@ def get_app() -> API:
 
     # Book Resource
     _app.add_route('/book', book_resource)
-    _app.add_route('/book/{book_id}', book_resource)
+    _app.add_route('/book/{book_id:int}', book_resource)
     _app.add_route('/books', book_resource, suffix='all_books')
 
     return _app

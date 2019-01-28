@@ -13,6 +13,7 @@ gunicorn = "*"
 alembic = "*"
 psycopg2 = "*"
 falcon = {git = "https://github.com/falconry/falcon.git"}
+jsonschema = "*"
 
 [requires]
 python_version = "3.6"

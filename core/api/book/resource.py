@@ -1,7 +1,15 @@
 import json
 import falcon
+from falcon.media.validators.jsonschema import validate
 
-from .domain import create_book, get_book_by_id, get_all_books, delete_book, update_book
+from ..schemas import load_schema
+from .domain import (
+                create_book,
+                get_book_by_id,
+                get_all_books,
+                delete_book,
+                update_book
+    )
 
 
 class BookResource(object):
@@ -16,12 +24,14 @@ class BookResource(object):
         resp.body = json.dumps(books)
         resp.status = falcon.HTTP_200
 
+    @validate(load_schema('create_book', path='book'))
     def on_post(self, req, resp):
         book_data = req.media
         book_obj = create_book(book_data)
         resp.body = json.dumps(book_obj)
         resp.status = falcon.HTTP_200
 
+    @validate(load_schema('update_book', path='book'))
     def on_put(self, req, resp, book_id):
         book_data = req.media
         book_obj = update_book(book_data, book_id)

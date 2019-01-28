@@ -1,0 +1,21 @@
+{
+    "title": "Create Book",
+    "type": "object",
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "author": {
+            "type": "string"
+        },
+        "isbn": {
+            "type": "integer",
+            "minimum": 0
+        }
+    },
+    "required": [
+        "name",
+        "author"
+    ]
+}
