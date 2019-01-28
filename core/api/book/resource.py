@@ -29,6 +29,7 @@ class BookResource(object):
         book_data = req.media
         book_obj = create_book(book_data)
         resp.body = json.dumps(book_obj)
+        resp.set_header('book-id', book_obj.get('id'))
         resp.status = falcon.HTTP_200
 
     @validate(load_schema('update_book', path='book'))

@@ -15,6 +15,7 @@ psycopg2 = "*"
 falcon = {git = "https://github.com/falconry/falcon.git"}
 jsonschema = "*"
 flake8 = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.6"

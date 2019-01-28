@@ -57,6 +57,11 @@ run-server:
 		gunicorn core.wsgi:app -w 1 --bind "0.0.0.0:8338" --reload\
 	)
 
+run-tests: clear
+	@(\
+		export SQLALCHEMY_DATABASE_URI=$(_TEST_DATABASE_URI); \
+		pytest -s --disable-warnings; \
+	)
 
 help:
 	@echo 'dcompose-start:'
@@ -68,6 +73,8 @@ help:
 	@echo '	Remove unused docker images'
 	@echo 'run-server:'
 	@echo '	Start application server'
+	@echo 'run-tests:'
+	@echo '	Run tests'
 	@echo 'clear:'
 	@echo '	Remove *.pyc files, __pycache__ and .cache folders'
 	@echo 'db-revision:'
