@@ -17,13 +17,13 @@ def create_book(book_data):
         # duplicate data value
         if not book.id:
             title = 'Book Already Exists'
-            description = f"Book {book_data.get('name')} already has been taken."
-            raise RecordAlreadyExists(title, description)
+            desc = f"Book {book_data.get('name')} already has been taken."
+            raise RecordAlreadyExists(title, desc)
 
     except IntegrityError:
         title = 'IntegrityError'
-        description = f"Book {book_data.get('name')} may already taken."
-        raise RecordAlreadyExists(title, description)
+        desc = f"Book {book_data.get('name')} may already taken."
+        raise RecordAlreadyExists(title, desc)
 
     return book
 
@@ -33,8 +33,8 @@ def get_book_by_id(book_id):
         result = Book.query.filter(Book.id == book_id).one()
     except NoResultFound:
         title = 'Record Not Found'
-        description = f"There is no Book with `id: {book_id}`"
-        raise RecordNotFound(title, description)
+        desc = f"There is no Book with `id: {book_id}`"
+        raise RecordNotFound(title, desc)
 
     return result
 

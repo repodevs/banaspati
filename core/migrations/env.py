@@ -8,7 +8,7 @@ from logging.config import fileConfig
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from api.common.database import BaseModel
+from api.common.database import BaseModel  # noqa: E402
 
 
 # this is the Alembic Config object, which provides
@@ -80,6 +80,7 @@ def run_migrations_online():
 
         with context.begin_transaction():
             context.run_migrations()
+
 
 if context.is_offline_mode():
     run_migrations_offline()

@@ -62,7 +62,8 @@ class ModelSerializerMixin(object):
 
         """
         if exclude and only:
-            msg = 'ModelSerializer can receive either `exclude` or `only`, not both.'
+            msg = 'ModelSerializer can receive'\
+                  'either `exclude` or `only`, not both.'
             raise ValueError(msg)
 
         if exclude is None:
@@ -86,7 +87,9 @@ class ModelSerializerMixin(object):
                     serialized_model[attr] = self._serialize_attr(attr)
                 else:
                     raise ValueError(
-                        'The `only` attribute contains an invalid key: `%s`' % attr)
+                        'The `only` attribute contains an invalid key: '
+                        '`%s`' % attr
+                    )
         else:
             for attr in _mapper:
                 serialized_model[attr] = self._serialize_attr(attr)
