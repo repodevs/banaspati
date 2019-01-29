@@ -1,0 +1,28 @@
+sudo:
+  - required
+
+language:
+  - python
+
+services:
+  - postgresql
+
+python:
+  - 3.6
+
+install:
+  - pip install pipenv
+  - pipenv install
+
+before_script:
+  - find . -name .cache -prune -exec rm -rf {} +
+  - psql -c 'CREATE DATABASE banaspatidbtest;' -U postgres
+  - export TEST_DATABASE_URI=postgres://postgres@127.0.0.1:5432/banaspatidbtest
+  - export SQLALCHEMY_DATABASE_URI=postgres://postgres@127.0.0.1:5432/banaspatidbtest
+  - echo 'TEST_DATABASE_URI=postgres://postgres@127.0.0.1:5432/banaspatidbtest' >> .env
+  - echo 'SQLALCHEMY_DATABASE_URI=postgres://postgres@127.0.0.1:5432/banaspatidbtest' >> .env
+
+script:
+  - flake8 core
+  - make db-upgrade
+  - make run-tests
