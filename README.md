@@ -1,5 +1,7 @@
 # Banaspati
 
+[![Build Status](https://travis-ci.org/repodevs/banaspati.svg?branch=master)](https://travis-ci.org/repodevs/banaspati)
+
 Robust web API powered by Falcon, SQLAlchemy and Docker
 
 ---
